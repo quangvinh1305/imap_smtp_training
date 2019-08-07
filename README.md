@@ -135,7 +135,7 @@ A UID SEARCH SINCE 13-May-2019
 A UID SEARCH OR FROM vinhtest1@123flo.com FROM vinhtest2@123flo.com
 A UID SEARCH TO vinhtest1@123flo.com
 
-Searching can also be done on UIDs. Keep in mind the last example may be a good strategy a for mailbox listener to process all the UIDs after the last seen and any unseen messages.
+Tìm kiếm trả về UIDs thỉnh thoảng good hơn sequence no for 1 vài lý do để integrate với your system. last example có thể là 1 good strategy a for mailbox listener để xử lý tất cả UIDs after the last seen và tất cả unseen messages.
 
 A UID SEARCH UID 1:*
 A SEARCH UID 1:*
