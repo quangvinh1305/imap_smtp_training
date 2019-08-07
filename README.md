@@ -43,7 +43,7 @@ Possible SEARCH terms
 - **size** - matches message size. In the form of `{key: 'size', value: num, operator: 'op'}` where _op_ is one of '<', '=', '>' and _num_ is the size of the message
 - **charset** - sets the charset to be used in the text fields. Can be ignored as everything should be UTF-8 by default
 
-## Currently implemented RFC3501 commands
+## commands thường dùng
 
 - **APPEND**
 - **CAPABILITY**
