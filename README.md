@@ -42,7 +42,7 @@ Những commands mở rộng một vài server sẽ setting để support or not
 
 Connect to the server on port 993
 
-    openssl s_client -crlf -connect mail.flomail.net:993
+    openssl s_client -crlf -connect 123flo.com:993
 
 Once connected use vinhtest1@123flo.com:123456 to log in
 
