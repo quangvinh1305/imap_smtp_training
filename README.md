@@ -9,8 +9,9 @@ Connect to the server on port 9993
 Once connected use vinhtest1@123flo.com:123456 to log in
 
     < * OK test ready
-    > A LOGIN testuser pass
+    > A LOGIN vinhtest1@123flo.com 123456
     < A OK testuser authenticated
+
 ## IMAP extension support
 
 This project is going to support only selected extensions, that are minimally required.
