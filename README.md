@@ -49,6 +49,10 @@ Khi connected use vinhtest1@123flo.com:123456 to log in. Server sẽ show nhữn
     < A OK vinhtest1@123flo.com authenticated
     
 ![LOGIN](https://user-images.githubusercontent.com/6763141/62596052-ebe55e80-b90a-11e9-8ec7-20d564960758.png)
+Lấy những folder special use như sent, inbox, .... Một số trường hợp nhiều mail server không có thư mục sent với special use \Sent. Nếu không xử lý chính xác có thể gây ra lỗi khi sent không lưu được vào chính xác sent folder. 
+
+A XLIST "" "*" 
+![image](https://user-images.githubusercontent.com/6763141/62614651-0b45b100-b936-11e9-8d9b-96a2e09a91dc.png)
 
 ## Querry cho để trả về tất cả các folder dưới dạng array or map.
 A LIST "" "*"
@@ -121,30 +125,71 @@ A SEARCH HEADER RECEIVED test
 ![image](https://user-images.githubusercontent.com/6763141/62599760-497fa800-b917-11e9-8fd8-c5576c9239cc.png)
 
 ## Thỉnh thoảng việc tìm kiếm khá phức tạp đòi hỏi phải build nhưng câu query vô cùng complex. Đòi hỏi câu query được build với nhiều criteria kết hợp lại với nhau.
-A SEARCH FROM vinhtest@g123flo.com SINCE 13-May-2019
-A SEARCH OR FROM vinhtest1@123flo.com FROM vinhtest2@123flo.com
-A SEARCH OR (FROM vinhtest1@123flo.com) (FROM vinhtest2@123floc.om)
-A SEARCH OR OR FROM vinhtest1@123flo.com FROM vinhtest2@123flo.com FROM vinhtest3@123flo.com **chú ý rằng khi tìm kiếm toán tử or chỉ nhận 2 input cho nên anh em chú ý cách build câu query cho phù hợp nhé**
-A SEARCH OR (FROM vinhtest1@github.com SINCE 13-Mar-2016) FROM vinhtest2@123flo.com
-A SEARCH NOT (OR (FROM vinhtest1@123flo.com) (BEFORE 13-May-2019))
-A SEARCH NOT SEEN
-A SEARCH UNSEEN
+#### A SEARCH FROM vinhtest@g123flo.com SINCE 13-May-2019
+#### A SEARCH OR FROM vinhtest1@123flo.com FROM vinhtest2@123flo.com
+#### A SEARCH OR (FROM vinhtest1@123flo.com) (FROM vinhtest2@123floc.om)
+#### A SEARCH OR OR FROM vinhtest1@123flo.com FROM vinhtest2@123flo.com FROM vinhtest3@123flo.com **chú ý rằng khi tìm kiếm toán tử or chỉ nhận 2 input cho nên anh em chú ý cách build câu query cho phù hợp nhé**
+#### A SEARCH OR (FROM vinhtest1@github.com SINCE 13-Mar-2016) FROM vinhtest2@123flo.com
+#### A SEARCH NOT (OR (FROM vinhtest1@123flo.com) (BEFORE 13-May-2019))
+#### A SEARCH NOT SEEN
+#### A SEARCH UNSEEN
 Để nhận  message với UIDs thì anh em bắt buộc phải thêm prefix UID nhé 
 
-A UID SEARCH SINCE 13-May-2019
-A UID SEARCH OR FROM vinhtest1@123flo.com FROM vinhtest2@123flo.com
-A UID SEARCH TO vinhtest1@123flo.com
+##### A UID SEARCH SINCE 13-May-2019
+##### A UID SEARCH OR FROM vinhtest1@123flo.com FROM vinhtest2@123flo.com
+##### A UID SEARCH TO vinhtest1@123flo.com
 
 Tìm kiếm trả về UIDs thỉnh thoảng good hơn sequence no for 1 vài lý do để integrate với your system. last example có thể là 1 good strategy a for mailbox listener để xử lý tất cả UIDs after the last seen và tất cả unseen messages.
 
-A UID SEARCH UID 1:*
-A SEARCH UID 1:*
-A UID SEARCH OR (UID 1:*) (UNSEEN)
+#### A UID SEARCH UID 1:*
+#### A SEARCH UID 1:*
+#### A UID SEARCH OR (UID 1:*) (UNSEEN)
 # mailserver của flo có hỗ trợ ESEARCH nhé ví dụ
 
 ## Đêm UNSEEN messages và  trả về messageNo/UID đầu tiên.
 
-A SEARCH RETURN (MIN COUNT) UNSEEN
-A UID SEARCH RETURN (MIN COUNT) UNSEEN
+#### A SEARCH RETURN (MIN COUNT) UNSEEN
+#### A UID SEARCH RETURN (MIN COUNT) UNSEEN
 ![image](https://user-images.githubusercontent.com/6763141/62601732-433ffa80-b91c-11e9-8448-315ca4587654.png)
 
+# 1. Fetch Ví dụ. Domail đóng vai trò là 1 forwarder. Send những commands to server thông qua actions của user và browser requests.  
+Fetch the nội dung của  1 email message thông qua những commands:
+Ví dụ fetch nội dung của một message thông qua sequence number 
+
+A FETCH 1 BODY.PEEK[TEXT]
+![image](https://user-images.githubusercontent.com/6763141/62609003-2b23a780-b92b-11e9-9a6e-ddf7f4140569.png)
+
+#### Fetch the header of the message:
+
+A FETCH 1 BODY.PEEK[HEADER]
+![image](https://user-images.githubusercontent.com/6763141/62609052-42fb2b80-b92b-11e9-9e32-81d2db3220db.png)
+
+#### Fetch header and contents of email message
+
+A FETCH 1 BODY.PEEK[]
+![image](https://user-images.githubusercontent.com/6763141/62609118-5c9c7300-b92b-11e9-8954-dfce41ea3ae2.png)
+
+#### Fetch những phần cụ thể của 1 message sâu hơn chúng ta sẽ discuss về node-imap và cách parse body, header lẫn metadata.
+
+A FETCH 1 BODY.PEEK[HEADER.FIELDS (Date From)]
+![image](https://user-images.githubusercontent.com/6763141/62609609-5064e580-b92c-11e9-9ce9-cb35cd9b675b.png)
+
+A FETCH 1 BODY.PEEK[HEADER.FIELDS.NOT (Date From)]
+![image](https://user-images.githubusercontent.com/6763141/62609689-696d9680-b92c-11e9-8091-be27d785e7ff.png)
+
+#### Chúng ta cũng có thể Fetch metadata bằng những command dưới đây.
+
+A FETCH 1 FLAGS
+A FETCH 1 ENVELOPE
+A FETCH 1 INTERNALDATE
+A FETCH 1 RFC822.SIZE
+A FETCH 1 BODYSTRUCTURE.PEEK
+A FETCH 1 UID
+
+#### Fetches cũng có thể dùng kết hợp với metadata
+
+A FETCH 1 (BODYSTRUCTURE.PEEK UID)
+A FETCH 1 (BODYSTRUCTURE.PEEK UID RFC822.SIZE) **trong vài trường hợp mình chỉ đi lấy 1 part của mail. Ví dụ part đó chứa file mình đi đọc cái file size đó lên hoặc là đọc file size sau khi parse ra** 
+Trong 1 vài trường hợp để improve performance một vài mail client dùng cả <start-index.length>
+
+A FETCH 1 (BODYSTRUCTURE.PEEK BODY.PEEK[]<0.200>)
