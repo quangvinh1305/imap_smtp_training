@@ -121,11 +121,17 @@ A SEARCH OLDER 3600
 ## Tìm kiếm message với properties FROM, TO, BCC, CC, BODY, SUBJECT. Việc tìm kiếm cũng tốn khá nhiều thời gian và thỉnh thoảng chi phí tìm kiếm với subject cũng rất lớn với những complex header và complex query so với body. 
 
 A SEARCH TO vinhtest1@123flo.com
+
 A SEARCH FROM vinhtest1@123flo.com
+
 A SEARCH CC vinhtest1@123flo.com
+
 A SEARCH BCC vinhtest1@123flo.com
+
 A SEARCH BODY test 
+
 A SEARCH HEADER RECEIVED test
+
 ![image](https://user-images.githubusercontent.com/6763141/62599760-497fa800-b917-11e9-8fd8-c5576c9239cc.png)
 
 ## Thỉnh thoảng việc tìm kiếm khá phức tạp đòi hỏi phải build nhưng câu query vô cùng complex. Đòi hỏi câu query được build với nhiều criteria kết hợp lại với nhau.
@@ -184,16 +190,24 @@ A FETCH 1 BODY.PEEK[HEADER.FIELDS.NOT (Date From)]
 #### Chúng ta cũng có thể Fetch metadata bằng những command dưới đây.
 
 A FETCH 1 FLAGS
+
 A FETCH 1 ENVELOPE
+
 A FETCH 1 INTERNALDATE
+
 A FETCH 1 RFC822.SIZE
+
 A FETCH 1 BODYSTRUCTURE.PEEK
+
 A FETCH 1 UID
 
 #### Fetches cũng có thể dùng kết hợp với metadata
 
 A FETCH 1 (BODYSTRUCTURE.PEEK UID)
-A FETCH 1 (BODYSTRUCTURE.PEEK UID RFC822.SIZE) **trong vài trường hợp mình chỉ đi lấy 1 part của mail. Ví dụ part đó chứa file mình đi đọc cái file size đó lên hoặc là đọc file size sau khi parse ra** 
+
+A FETCH 1 (BODYSTRUCTURE.PEEK UID RFC822.SIZE) **trong vài trường hợp mình chỉ đi lấy 1 part của mail. Ví dụ part đó chứa 
+file mình đi đọc cái file size đó lên hoặc là đọc file size sau khi parse ra** 
+
 Trong 1 vài trường hợp để improve performance một vài mail client dùng cả <start-index.length>
 
 A FETCH 1 (BODYSTRUCTURE.PEEK BODY.PEEK[]<0.200>)
