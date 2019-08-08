@@ -101,11 +101,15 @@ Từ gmail mình gửi một message đến vinhtest1@123flo.com mình muốn t�
 ## Tìm kiếm với thời gian đã chỉ định ví dụ vào SINCE 7-Aug-2019 mình đã nhận một message.
 
 A SEARCH SENTBEFORE 12-Mar-2016
+
 A SEARCH SENTON 12-Mar-2016
+
 A SEARCH SENTSINCE 12-Mar-2016
 
 A SEARCH SINCE 12-Mar-2016
+
 A SEARCH ON 12-Mar-2016
+
 A SEARCH BEFORE 12-Mar-2016
 ![image](https://user-images.githubusercontent.com/6763141/62599177-bb56f200-b915-11e9-8c84-e63cc35befe5.png)
 
